@@ -22,15 +22,20 @@ def upload_document(request):
 
 
 def generate_qr_code(request, document_id):
-        document = Document.objects.get(id=document_id)
+    document = Document.objects.get(id=document_id)
 
-        # Construct the full URL
-        full_url = request.build_absolute_uri(document.pdf_file.url)
+    # Construct the full URL
+    full_url = request.build_absolute_uri(document.pdf_file.url)
 
-        # Create QR code
-        qr = qrcode.make(full_url)
+    # Create QR code
+    qr = qrcode.make(full_url)
 
-        # Save the QR code as a temporary file
-        response = HttpResponse(content_type='image/png')
-        qr.save(response, 'PNG')
-        return response
+    # Create an HTTP response with the QR code image
+    response = HttpResponse(content_type='image/png')
+    qr.save(response, 'PNG')
+
+    # Set the Content-Disposition header to prompt download
+    response['Content-Disposition'] = 'attachment; filename="qr_code.png"'
+
+    return response
+
