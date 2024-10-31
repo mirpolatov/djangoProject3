@@ -22,10 +22,15 @@ def upload_document(request):
 
 
 def generate_qr_code(request, document_id):
-    document = Document.objects.get(id=document_id)
-    qr = qrcode.make(document.pdf_file.url)
+        document = Document.objects.get(id=document_id)
 
-    # QR kodini vaqtinchalik fayl sifatida saqlash
-    response = HttpResponse(content_type='image/png')
-    qr.save(response, 'PNG')
-    return response
+        # Construct the full URL
+        full_url = request.build_absolute_uri(document.pdf_file.url)
+
+        # Create QR code
+        qr = qrcode.make(full_url)
+
+        # Save the QR code as a temporary file
+        response = HttpResponse(content_type='image/png')
+        qr.save(response, 'PNG')
+        return response
