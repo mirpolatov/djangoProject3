@@ -4,51 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Введите PIN-код</title>
+    <title>My Page</title>
     <style>
         /* Body styles */
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
             margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
         }
 
-        /* Container styling */
-        .container {
-            width: 100%;
-            max-width: 400px;
+        /* Container for the header */
+        .header {
+            display: flex;
+            align-items: center;
             background-color: #ffffff;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Logo styling */
+        /* Logo styles */
         .logo {
-            width: 100px;
+            width: 50px; /* Adjust size as needed */
             height: auto;
-            margin-bottom: 20px;
+            margin-right: 15px; /* Space between logo and caption */
         }
 
-        /* Caption styling */
+        /* Caption styles */
         .caption {
-            font-size: 1.2em;
-            color: #555;
-            margin-bottom: 10px;
-            text-align: center;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        /* Main content styles */
+        .content {
+            padding: 20px;
+            text-align: center; /* Centered content */
         }
 
         /* Form title styling */
         h2 {
             color: #333;
             font-size: 1.5em;
-            margin-bottom: 10px;
-            text-align: left; /* Align title to the left */
+            margin: 20px 0; /* Margin to separate it from other content */
+            text-align: center; /* Center title */
         }
 
         /* Input field styling */
@@ -73,6 +72,7 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: green;
         }
@@ -82,34 +82,46 @@
             color: black;
             margin-top: 10px;
         }
+
+        /* Form container styling */
+        .form-container {
+            max-width: 400px; /* Limit form width */
+            margin: 0 auto; /* Center form */
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center; /* Center text in form */
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Caption above the logo -->
+    <!-- Header with logo and caption -->
+    <div class="header">
+        <img src="{% static '../media/Безымянный-1.png' %}" alt="Logo" class="logo">
         <p class="caption">Ваш надежный документ</p>
+    </div>
 
-        <!-- Logo at the top -->
-        <img src="https://my.gov.uz/uz/connection/period" alt="Logo" class="logo">
-
-        <!-- Caption below the logo -->
-        <p class="caption">Введите ваш PIN-код для доступа</p>
-
-        <!-- Title -->
-        <h2>Введите PIN-код для просмотра документа</h2>
-
+    <!-- Main content area -->
+    <div class="content">
+        <h2>Добро пожаловать на нашу страницу!</h2>
+        <p>Это пример страницы с заголовком и логотипом слева от текста.</p>
+        
         <!-- PIN input form -->
-        <form method="POST" style="max-width: 300px; margin: 0 auto;">
-            {% csrf_token %}
-            <label for="pin" style="display: block; font-weight: bold; margin-bottom: 5px; text-align: left;">ПИН код</label>
-            <input type="password" id="pin" name="pin" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
-            <button type="submit">Открыть</button>
-        </form>
+        <h2>Введите PIN-код для доступа</h2>
+        <div class="form-container">
+            <form method="POST" style="max-width: 300px; margin: 0 auto;">
+                {% csrf_token %}
+                <label for="pin" style="display: block; font-weight: bold; margin-bottom: 5px; text-align: left;">ПИН код</label>
+                <input type="password" id="pin" name="pin" required>
+                <button type="submit">Открыть</button>
+            </form>
 
-        <!-- Error message display -->
-        {% if error %}
-            <p class="error">{{ error }}</p>
-        {% endif %}
+            <!-- Error message display -->
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>
