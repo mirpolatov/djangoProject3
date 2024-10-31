@@ -1,8 +1,8 @@
-<!-- verify_pin.html -->
-<h2>Enter PIN to Access Document</h2>
+
+<h2>Введите PIN-код для просмотра документа</h2>
 <form method="POST">
     {% csrf_token %}
-    <input type="password" name="pin" placeholder="Enter PIN" required>
+    <input type="password" name="pin" placeholder="ПИН код" required>
     <button type="submit">Submit</button>
 </form>
 {% if error %}
