@@ -64,9 +64,8 @@
             border-radius: 4px;
             cursor: pointer;
         }
-
         button:hover {
-            background-color: #0056b3;
+            background-color: green;
         }
 
         /* Error message styling */
@@ -77,24 +76,24 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <!-- Logo at the top -->
-    <img src="{% static '../media/rasm/Безымянный-1.png' %}" alt="Logo" class="logo">
+    <div class="container">
+        <!-- Logo at the top -->
+        <img src="../media/rasm/Безымянный-1.png" alt="Logo" class="logo">
 
-    <!-- Title -->
-    <h2>Введите PIN-код для просмотра документа</h2>
+        <!-- Title -->
+        <h2>Введите PIN-код для просмотра документа</h2>
 
-    <!-- PIN input form -->
-    <form method="POST">
-        {% csrf_token %}
-        <input type="password" name="pin" placeholder="ПИН код" required>
-        <button type="submit">Подтвердить</button>
-    </form>
+        <!-- PIN input form -->
+        <form method="POST">
+            {% csrf_token %}
+            <input type="password" name="pin" placeholder="ПИН код" required>
+            <button type="submit">Подтвердить</button>
+        </form>
 
-    <!-- Error message display -->
-    {% if error %}
-        <p class="error">{{ error }}</p>
-    {% endif %}
-</div>
+        <!-- Error message display -->
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
 </body>
 </html>
