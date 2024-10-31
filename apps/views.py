@@ -29,7 +29,7 @@ def verify_pin(request, document_id):
         if entered_pin == document.pin:
             return redirect(document.pdf_file.url)  # Redirect to the PDF if PIN is correct
         else:
-            return render(request, 'verify_pin.html', {'error': 'Incorrect PIN.', 'document_id': document_id})
+            return render(request, 'verify_pin.html', {'error': 'не правильно ПИН код.', 'document_id': document_id})
 
     return render(request, 'verify_pin.html', {'document_id': document_id})
 

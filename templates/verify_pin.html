@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,6 +64,7 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #0056b3;
         }
@@ -75,24 +77,24 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Logo at the top -->
-        <img src="/static/img/logo.png" alt="Logo" class="logo">
-        
-        <!-- Title -->
-        <h2>Введите PIN-код для просмотра документа</h2>
+<div class="container">
+    <!-- Logo at the top -->
+    <img src="{% static '../media/rasm/Безымянный-1.png' %}" alt="Logo" class="logo">
 
-        <!-- PIN input form -->
-        <form method="POST">
-            {% csrf_token %}
-            <input type="password" name="pin" placeholder="ПИН код" required>
-            <button type="submit">Подтвердить</button>
-        </form>
-        
-        <!-- Error message display -->
-        {% if error %}
-            <p class="error">{{ error }}</p>
-        {% endif %}
-    </div>
+    <!-- Title -->
+    <h2>Введите PIN-код для просмотра документа</h2>
+
+    <!-- PIN input form -->
+    <form method="POST">
+        {% csrf_token %}
+        <input type="password" name="pin" placeholder="ПИН код" required>
+        <button type="submit">Подтвердить</button>
+    </form>
+
+    <!-- Error message display -->
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+</div>
 </body>
 </html>
