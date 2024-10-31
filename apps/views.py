@@ -53,17 +53,14 @@ def verify_pin(request, document_id):
 #     return response
 
 def generate_qr_code(request, document_id):
-    # Create the URL for the verification page
+    # Use the URL for the PIN verification view
     verification_url = request.build_absolute_uri(f'/verify-pin/{document_id}/')
 
-    # Generate the QR code
+    # Create QR code with the verification URL
     qr = qrcode.make(verification_url)
 
     # Create an HTTP response with the QR code image
     response = HttpResponse(content_type='image/png')
     qr.save(response, 'PNG')
-
-    # Prompt download of the QR code image
-    response['Content-Disposition'] = 'attachment; filename="qr_code.png"'
 
     return response
