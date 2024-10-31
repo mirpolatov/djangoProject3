@@ -15,6 +15,7 @@
             align-items: center;
             height: 100vh;
         }
+
         .container {
             background-color: #fff;
             padding: 20px;
@@ -22,10 +23,12 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
+
         h1 {
             text-align: center;
             color: #333;
         }
+
         input[type="text"], input[type="file"] {
             width: 100%;
             padding: 10px;
@@ -33,6 +36,7 @@
             border: 1px solid #ddd;
             border-radius: 4px;
         }
+
         button {
             width: 100%;
             background-color: #007BFF;
@@ -42,20 +46,24 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Upload PDF Document</h1>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="text" name="title" placeholder="Document Title" required>
-            <input type="file" name="pdf_file" accept="application/pdf" required>
-            <button type="submit">Upload</button>
-        </form>
-    </div>
+<div class="container">
+    <h1>Upload PDF Document</h1>
+    <!-- upload.html -->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Document Title" required>
+        <input type="file" name="pdf_file" required>
+        <input type="password" name="pin" placeholder="Enter PIN" required>
+        <button type="submit">Upload Document</button>
+    </form>
+
+</div>
 </body>
 </html>
