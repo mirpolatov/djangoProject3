@@ -1,20 +1,23 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Page</title>
+    <title>Моя страница</title>
     <style>
-        /* Body styles */
+        /* Общие стили */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
         }
 
-        /* Container for the header */
+        /* Стили для заголовка */
         .header {
             display: flex;
             align-items: center;
@@ -23,34 +26,55 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Logo styles */
         .logo {
-            width: 50px; /* Adjust size as needed */
+            width: 50px;
             height: auto;
-            margin-right: 15px; /* Space between logo and caption */
+            margin-right: 15px;
         }
 
-        /* Caption styles */
         .caption {
             font-size: 1.5em;
             color: #333;
         }
 
-        /* Main content styles */
+        /* Контейнер для контента */
         .content {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
-            text-align: center; /* Centered content */
+            gap: 20px;
         }
 
-        /* Form title styling */
-        h2 {
-            color: #333;
-            font-size: 1.5em;
-            margin: 20px 0; /* Margin to separate it from other content */
-            text-align: center; /* Center title */
+        /* Контейнер для формы */
+        .form-container {
+            max-width: 400px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 50%;
         }
 
-        /* Input field styling */
+        /* Превью документа */
+        .document-preview-container {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .document-preview {
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            object-fit: contain;
+            height: 100%;
+        }
+
         input[type="password"] {
             width: 100%;
             padding: 12px;
@@ -61,7 +85,6 @@
             box-sizing: border-box;
         }
 
-        /* Button styling */
         button {
             width: 100%;
             padding: 12px;
@@ -77,49 +100,72 @@
             background-color: green;
         }
 
-        /* Error message styling */
         .error {
             color: black;
             margin-top: 10px;
         }
-
-        /* Form container styling */
-        .form-container {
-            max-width: 400px; /* Limit form width */
-            margin: 0 auto; /* Center form */
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center; /* Center text in form */
+        .notification {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border: 1px solid #ffeeba;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            position: relative;
         }
+
+        .notification .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #856404;
+        }
+    </style>
+    <script>
+        // Функция для закрытия уведомления
+        function closeNotification() {
+            document.getElementById("notification").style.display = "none";
+        }
+    </script>
     </style>
 </head>
 <body>
-    <!-- Header with logo and caption -->
-    <div class="header">
-        <img src="{% static '../media/Безымянный-1.png' %}" alt="Logo" class="logo">
-        <p class="caption">my.gov.uz.xizmat</p>
-    </div>
+<!-- Шапка -->
+<div class="header">
+    <img src="{% static '../media/Безымянный-1.png' %}" alt="Логотип" class="logo">
+    <p class="caption">my.gov.uz.xizmat</p>
+</div>
 
-    <!-- Main content area -->
-    <div class="content">
-        
-        <!-- PIN input form -->
-        <h2>Введите PIN-код для просмотра документа</h2>
-        <div class="form-container">
-            <form method="POST" style="max-width: 300px; margin: 0 auto;">
-                {% csrf_token %}
-                <label for="pin" style="display: block; font-weight: bold; margin-bottom: 5px; text-align: left;">ПИН код</label>
-                <input type="password" id="pin" name="pin" required>
-                <button type="submit">Открыть</button>
-            </form>
-
-            <!-- Error message display -->
-            {% if error %}
-                <p class="error">{{ error }}</p>
-            {% endif %}
+<!-- Основной контент -->
+<div class="content">
+    <!-- Форма ввода PIN -->
+    <div class="form-container">
+        <div id="notification" class="notification">
+            Пожалуйста, пройдите авторизацию, чтобы система определила вас. Если документ принадлежит вам, введения ПИН-кода не требуется. <a href="#">Нажмите здесь для авторизации</a>.
+            <span class="close" onclick="closeNotification()">×</span>
         </div>
+
+
+        <h2>Введите PIN-код для просмотра документа</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="pin" style="display: block; font-weight: bold; margin-bottom: 5px; text-align: left;">ПИН код</label>
+            <input type="password" id="pin" name="pin" required>
+            <button type="submit">Открыть</button>
+        </form>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
     </div>
+
+    <!-- Превью документа -->
+    <div class="document-preview-container">
+        <img src="{% static '../media/foto.png' %}" alt="Превью документа" class="document-preview">
+{#        <img src="../media/foto.png" alt="Превью документа" class="document-preview">#}
+    </div>
+</div>
 </body>
 </html>
