@@ -15,6 +15,7 @@
             align-items: center;
             min-height: 100vh;
         }
+
         .container {
             width: 90%;
             max-width: 800px;
@@ -23,10 +24,12 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             text-align: center;
             color: #333;
         }
+
         .document {
             display: flex;
             justify-content: space-between;
@@ -34,36 +37,63 @@
             padding: 15px;
             border-bottom: 1px solid #ddd;
         }
+
         .document:last-child {
             border-bottom: none;
         }
+
         .document-title {
             font-size: 1.2em;
             color: #555;
         }
+
         .document-links a {
             margin-left: 10px;
             color: #007BFF;
             text-decoration: none;
             font-size: 0.9em;
         }
+
         .document-links a:hover {
             text-decoration: underline;
+        }
+
+        .delete-form {
+            display: inline;
+        }
+
+        .delete-button {
+            margin-left: 10px;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            font-size: 0.9em;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>PDF Documents</h1>
-        {% for document in documents %}
+<div class="container">
+    <h1>PDF Documents</h1>
+    {% for document in documents %}
         <div class="document">
             <span class="document-title">{{ document.title }}</span>
             <div class="document-links">
                 <a href="{{ document.pdf_file.url }}" target="_blank">View PDF</a>
                 <a href="{% url 'generate_qr_code' document.id %}" target="_blank">QR Code</a>
+                <form class="delete-form" action="{% url 'delete_document' document.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
             </div>
         </div>
-        {% endfor %}
-    </div>
+    {% endfor %}
+</div>
 </body>
 </html>
