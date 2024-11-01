@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.urls import path
 from . import views
 
@@ -9,3 +10,8 @@ urlpatterns = [
     path('document/<int:document_id>/delete/', views.delete_document, name='delete_document'),
 ]
 
+
+def custom_404_view(request, exception):
+    return render(request, '404.html', status=404)
+
+handler404 = custom_404_view
