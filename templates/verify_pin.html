@@ -99,6 +99,11 @@
         button:hover {
             background-color: green;
         }
+        .hamburger {
+            height: 30px;
+            width: auto;
+            cursor: pointer;
+        }
 
         .error {
             color: black;
@@ -129,7 +134,7 @@
             font-weight: bold;
             color: #856404;
         }
-        
+
         .heading {
             text-align: start;
             font-size: clamp(0.875rem, 0.648rem + 1.14vw, 1.5rem);
@@ -140,7 +145,7 @@
             .content {
                 flex-direction: column;
                 flex: none;
-            }            
+            }
 
             .content img {
                 display: none;
@@ -166,7 +171,9 @@
 <!-- Шапка -->
 <div class="header">
     <img src="{% static '../media/Безымянный-1.png' %}" alt="Логотип" class="logo">
-    <p class="caption">my.gov.uz.xizmat</p>
+    <p class="caption">my.gov.uz</p>
+    <img src="{% static '../media/aaaaaaaaa.png' %}" alt="Гамбургер-меню" class="hamburger">
+
 </div>
 
 <!-- Основной контент -->
@@ -188,14 +195,14 @@
         </form>
 
         {% if error %}
-            <p class="error">{{ error }}</p>
+        <p class="error">{{ error }}</p>
         {% endif %}
     </div>
 
     <!-- Превью документа -->
     <div class="document-preview-container">
         <img src="{% static '../media/foto.png' %}" alt="Превью документа" class="document-preview">
-{#        <img src="../media/foto.png" alt="Превью документа" class="document-preview">#}
+        {#        <img src="../media/foto.png" alt="Превью документа" class="document-preview">#}
     </div>
 </div>
 </body>
