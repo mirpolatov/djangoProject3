@@ -162,19 +162,10 @@
     <script>
         // Функция для закрытия уведомления
         function closeNotification() {
-            document.getElementById("notification").style.display = "none";
-        }
-
-        // Функция для показа/скрытия ПИН-кода
-        function togglePinVisibility() {
-            var pinInput = document.getElementById("pin");
-            if (pinInput.type === "password") {
-                pinInput.type = "text";
-            } else {
-                pinInput.type = "password";
-            }
+            document.getElementById("notification").style.display = "open";
         }
     </script>
+    </style>
 </head>
 <body>
 <!-- Шапка -->
@@ -182,6 +173,7 @@
     <img src="{% static '../media/Безымянный-1.png' %}" alt="Логотип" class="logo">
     <p class="caption">my.gov.uz</p>
     <img src="{% static '../media/aaaaaaaaa.png' %}" alt="Гамбургер-меню" class="hamburger">
+
 </div>
 
 <!-- Основной контент -->
@@ -193,12 +185,12 @@
             <span class="close" onclick="closeNotification()">×</span>
         </div>
 
+
         <h2 class="heading">Введите PIN-код для просмотра документа</h2>
         <form method="POST">
             {% csrf_token %}
             <label for="pin" style="display: block; font-weight: bold; margin-bottom: 5px; text-align: left;">ПИН код</label>
             <input type="password" id="pin" name="pin" required>
-            <input type="checkbox" onclick="togglePinVisibility()"> Показать ПИН
             <button type="submit">Открыть</button>
         </form>
 
@@ -210,6 +202,7 @@
     <!-- Превью документа -->
     <div class="document-preview-container">
         <img src="{% static '../media/foto.png' %}" alt="Превью документа" class="document-preview">
+        {#        <img src="../media/foto.png" alt="Превью документа" class="document-preview">#}
     </div>
 </div>
 </body>
