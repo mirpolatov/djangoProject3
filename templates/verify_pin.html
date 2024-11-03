@@ -164,14 +164,6 @@
         function closeNotification() {
             document.getElementById("notification").style.display = "none";
         }
-        function togglePasswordVisibility() {
-        const pinInput = document.getElementById("pin");
-        if (pinInput.type === "password") {
-            pinInput.type = "text";
-        } else {
-            pinInput.type = "password";
-        }
-    }
     </script>
     </style>
 </head>
@@ -188,26 +180,23 @@
 <div class="content">
     <!-- Форма ввода PIN -->
     <div class="form-container">
-        <div id="notification" class="notification">
-            Пожалуйста, пройдите авторизацию, чтобы система определила вас. Если документ принадлежит вам, введения ПИН-кода не требуется. <a href="#">Нажмите здесь для авторизации</a>.
-            <span class="close" onclick="closeNotification()">×</span>
-        </div>
-
-
-        <h2 class="heading">Введите PIN-код для просмотра документа</h2>
-        <form method="POST">
-            {% csrf_token %}
-        <label for="pin" style="display: block; font-weight: bold; margin-bottom: 5px; text-align: left;">ПИН код</label>
-        <input type="password" id="pin" name="pin" required>
-        <input type="checkbox" id="show-password" onclick="togglePasswordVisibility()">
-        <label for="show-password" style="display: inline-block; margin-left: 5px;">Показать ПИН-код</label>
-        <button type="submit">Открыть</button>
-        </form>
-
-        {% if error %}
-        <p class="error">{{ error }}</p>
-        {% endif %}
+    <div id="notification" class="notification">
+        Пожалуйста, пройдите авторизацию, чтобы система определила вас. Если документ принадлежит вам, введения ПИН-кода не требуется. <a href="#">Нажмите здесь для авторизации</a>.
+        <span class="close" onclick="closeNotification()">×</span>
     </div>
+
+    <h2 class="heading">Введите PIN-код для просмотра документа</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="pin" style="display: block; font-weight: bold; margin-bottom: 5px; text-align: left;">ПИН код</label>
+        <input type="text" id="pin" name="pin" required> <!-- Changed type to "text" -->
+        <button type="submit">Открыть</button>
+    </form>
+
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+</div>
 
     <!-- Превью документа -->
     <div class="document-preview-container">
