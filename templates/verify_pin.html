@@ -162,8 +162,16 @@
     <script>
         // Функция для закрытия уведомления
         function closeNotification() {
-            document.open("notification").style.display = "none";
+            document.getElementById("notification").style.display = "none";
         }
+        function togglePasswordVisibility() {
+        const pinInput = document.getElementById("pin");
+        if (pinInput.type === "password") {
+            pinInput.type = "text";
+        } else {
+            pinInput.type = "password";
+        }
+    }
     </script>
     </style>
 </head>
@@ -189,9 +197,11 @@
         <h2 class="heading">Введите PIN-код для просмотра документа</h2>
         <form method="POST">
             {% csrf_token %}
-            <label for="pin" style="display: block; font-weight: bold; margin-bottom: 5px; text-align: left;">ПИН код</label>
-            <input type="password" id="pin" name="pin" required>
-            <button type="submit">Открыть</button>
+        <label for="pin" style="display: block; font-weight: bold; margin-bottom: 5px; text-align: left;">ПИН код</label>
+        <input type="password" id="pin" name="pin" required>
+        <input type="checkbox" id="show-password" onclick="togglePasswordVisibility()">
+        <label for="show-password" style="display: inline-block; margin-left: 5px;">Показать ПИН-код</label>
+        <button type="submit">Открыть</button>
         </form>
 
         {% if error %}
